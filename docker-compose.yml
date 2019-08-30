@@ -1,5 +1,12 @@
 version: '3'
 services:
+  nginx:
+    restart: always # If the nginx service crashes, restart it
+    build:
+      dockerfile: Dockerfile.dev 
+      context: ./nginx
+    ports:
+      - '3050:80' # In dev machine the port is 3050, in container, the port is 80
   postgres: 
     image: "postgres:latest" # Get the Postgres latest image from docker hub
   redis:
