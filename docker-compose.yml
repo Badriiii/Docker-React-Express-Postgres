@@ -15,7 +15,7 @@ services:
     build:
       dockerfile: Dockerfile.dev 
       context: ./server
-    volume:
+    volumes:
       - /app/node_modules # Keep node modules file as it is
       - ./server:/app # Get all values from server folder except node_modules
     environments: # varName=value
@@ -30,13 +30,13 @@ services:
     build:
       dockerfile: Dockerfile.dev 
       context: ./client
-    volume:
+    volumes:
       - /app/node_modules # Keep node modules file as it is
       - ./client:/app # Get all values from client folder except node_modules
   worker:
     build:
       dockerfile: Dockerfile.dev 
       context: ./worker
-    volume:
+    volumes:
       - /app/node_modules # Keep node modules file as it is
       - ./worker:/app # Get all values from worker folder except node_modules
