@@ -18,7 +18,7 @@ services:
     volumes:
       - /app/node_modules # Keep node modules file as it is
       - ./server:/app # Get all values from server folder except node_modules
-    environments: # varName=value
+    environment: # varName=value
       - REDIS_HOST=redis # indicates the redis server of our docker compose file
       - REDIS_PORT=6379 # default port as per docs
       - PGUSER=postgres # indicates the postgres server of our docker compose file
