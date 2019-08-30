@@ -40,3 +40,6 @@ services:
     volumes:
       - /app/node_modules # Keep node modules file as it is
       - ./worker:/app # Get all values from worker folder except node_modules
+    environment:
+    - REDIS_HOST=redis
+    - REDIS_PORT=6379
