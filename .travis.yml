@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  # Build the test image from the dev docker file
+  - docker build -t programmingwithbadri/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true programmingwithbadri/react-test npm run test # Runs the test and exit from image
+
+after_success:
+  # Build the docker files for production
+  - docker build -t programmingwithbadri/multi-client ./client
+  - docker build -t programmingwithbadri/multi-server ./server
+  - docker build -t programmingwithbadri/multi-nginx ./nginx
+  - docker build -t programmingwithbadri/multi-worker ./worker
+  # Login to Docker CLI -(Gets(echo) docker pass from travis config and pass it as stdin)
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push the images to docker hub
+  - docker push programmingwithbadri/multi-client
+  - docker push programmingwithbadri/multi-server
+  - docker push programmingwithbadri/multi-nginx
+  - docker push programmingwithbadri/multi-worker
