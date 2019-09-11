@@ -22,3 +22,16 @@ after_success:
   - docker push programmingwithbadri/multi-server
   - docker push programmingwithbadri/multi-nginx
   - docker push programmingwithbadri/multi-worker
+   
+deploy:
+  provider: elasticbeanstalk # specifies which provider we need to deploy
+  region: "us-east-2" # specifies which region we need to deploy as per defined in the provider
+  app: "multi-docker" # specifies the appname we need to deploy as per defined in the provider
+  env: "MultiDocker-env" # specifies the environment as per defined in the provider
+  bucket_name: "elasticbeanstalk-us-east-2-731817459015" # specifies on where we need to place our code after CI
+  bucket_path: "docker-multi" # specifies storage path in this case app name(path will be available inside the bucket, something like folder in the storage drive)
+  on: 
+    branch: master # on which branch should i trigger CD 
+  access_key_id: $AWS_ACCESS_KEY #env key set in travis ci
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"  #env secret set in travis ci
