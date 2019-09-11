@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2, 
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "programmingwithbadri/multi-client",
+            "hostname": "client",
+            "essemtial": "false"
+        },
+        {
+            "name": "server",
+            "image": "programmingwithbadri/multi-server",
+            "hostname": "api",
+            "essemtial": "false"
+        },
+        {
+            "name": "worker",
+            "image": "programmingwithbadri/multi-worker",
+            "hostname": "worker",
+            "essemtial": "false"
+        },
+        {
+            "name": "nginx",
+            "image": "programmingwithbadri/multi-nginx",
+            "hostname": "nginx",
+            "essemtial": "true",
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
